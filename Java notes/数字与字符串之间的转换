@@ -1,0 +1,12 @@
+-----int 转字String
+
+使用String静态方法
+String.valueOf(int value);
+
+使用Integer静态方法
+Integer.toString(int value,int radius);
+
+
+-----String 转 int
+使用Integer静态方法
+Integer.parseInt(String number);

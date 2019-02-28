@@ -1,0 +1,70 @@
+package com.SuperLcb;
+
+import com.alibaba.fastjson.JSONObject;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.util.List;
+import java.util.Scanner;
+
+class Translater--------实现翻译功能的类
+{
+    public static String translate(String q) throws Exception
+    {
+        String url="http://api.fanyi.baidu.com/api/trans/vip/translate?q=%s&from=en&to=zh&appid=%s&salt=%s&sign=%s";
+        String appid="20190222000270033";
+        String passKey="mAOKnj8TmS889SISWPAF";
+        String salt=String.valueOf(System.currentTimeMillis());
+        String sign=MD5.Security(appid+q+salt+passKey);----MD5加密
+        url= String.format(url,q,appid,salt,sign);-----格式化字符串
+        URL Request=new URL(url);
+        URLConnection connection=Request.openConnection();-------打开URL连接
+        InputStream in=connection.getInputStream();----获取连接的输入流
+        byte[] Message=new byte[1024];
+        int length=in.read(Message);
+        return new String(Message,0,length,"utf-8");
+    }
+}
+class MD5------------------MD5加密部分
+{
+
+     public static String Security(String str) throws Exception
+     {
+         String hex=new String("0123456789abcdef");
+         MessageDigest messageDigest=MessageDigest.getInstance("MD5");
+         messageDigest.update(str.getBytes("utf-8"));
+         byte[] Data=messageDigest.digest();-------此函数只可调用一次，之后信息源字符串作废。。实在巨坑，搞了好久……
+         char[] result=new char[Data.length*2];
+         int index=0;
+         for(byte b : Data)
+         {
+             result[index++]=hex.charAt(b>>>4&0xf);----无符号右移四位取得一字节高四位
+             result[index++]=hex.charAt(b&0xf);
+         }
+         return new String(result);
+     }
+}
+class Info-----匹配百度返回的Json数据
+{
+    public String Info;
+    public String to;
+    public List<Result> trans_result;------数组一定要用集合，哪怕只有一个元素。。。。有一点坑
+}
+class Result
+{
+    public String src;
+    public String dst;
+}
+public class HttpSocket {
+    public static void main(String[] args) throws Exception {
+        Scanner s=new Scanner(System.in);
+        while(s.hasNext())
+        {
+            String Json=Translater.translate(s.next());
+            Info info=JSONObject.parseObject(Json,Info.class);---阿里Json解析器将Json反序列化为Java类
+            System.out.println(info.trans_result.get(0).dst);
+        }
+    }
+}
