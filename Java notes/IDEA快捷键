@@ -1,0 +1,21 @@
+ctrl+q  查看文档注释
+ctrl+w 选中上下文
+ctrl+p  查看方法参数
+ctrl+b  查看源代码 
+ctrl+z  撤销
+ctrl+shift+z  反撤销
+ctrl+o  查看实现的父类中的方法
+ctrl+h  查看类的继承的层次结构
+ctrl+f  查找关键字
+ctrl+n  在项目文件中查找类或文件
+ctrl+alt+t  用将代码包裹在块中
+ctrl+alt+l 代码格式化
+ctrl+y  删除行
+ctrl+d  复制行到下一行
+ctrl+space 代码提示
+
+alt+上下左右 跳到上次光标的位置  
+alt+1 打开项目文件结构视图
+alt+enter 查看可能纠正的错误
+
+F2 跳到错误处
