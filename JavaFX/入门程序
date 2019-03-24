@@ -1,0 +1,26 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+-----以上为下面程序所使用到得包
+-----以  javafx   开头
+
+public class Test extends Application {
+    Button button=null;
+    StackPane stackPane=null;
+    Scene scene=null;
+    public static void main(String[] args) {
+        launch(args);
+    }
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        button=new Button("HelloWrold");--控件
+        stackPane=new StackPane();--------布局
+        stackPane.getChildren().add(button);
+        scene=new Scene(stackPane,200,200);--场景
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+控件-》布局-》场景-》舞台（窗口）
